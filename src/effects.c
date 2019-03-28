@@ -3806,6 +3806,32 @@ int effects_monitor_output_parameter(int effect_id, const char *control_symbol)
     return SUCCESS;
 }
 
+int effects_monitor_output_parameter_stop(int effect_id, const char *control_symbol)
+{
+    port_t *port;
+
+    if (!InstanceExist(effect_id))
+        return ERR_INSTANCE_NON_EXISTS;
+
+    port = FindEffectOutputPortBySymbol(&(g_effects[effect_id]), control_symbol);
+
+    if (port == NULL)
+        return ERR_LV2_INVALID_PARAM_SYMBOL;
+
+    // check if already not monitored
+    if (!(port->hints & HINT_MONITORED))
+        return SUCCESS;
+
+    // set prev_value
+    port->prev_value = (*port->buffer);
+    port->hints &= ~HINT_MONITORED;
+
+    // activate output monitor
+    g_effects[effect_id].hints &= ~HINT_OUTPUT_MONITORS;
+
+    return SUCCESS;
+}
+
 int effects_bypass(int effect_id, int value)
 {
     if (!InstanceExist(effect_id))

@@ -65,6 +65,7 @@
 #define EFFECT_LICENSEE     "licensee %i"
 #define MONITOR_ADDR_SET    "monitor %s %i %i"
 #define MONITOR_OUTPUT      "monitor_output %i %s"
+#define MONITOR_OUTPUT_STOP "monitor_output_stop %i %s"
 #define MIDI_LEARN          "midi_learn %i %s %f %f"
 #define MIDI_MAP            "midi_map %i %s %i %i %f %f"
 #define MIDI_UNMAP          "midi_unmap %i %s"
