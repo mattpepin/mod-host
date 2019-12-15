@@ -122,7 +122,7 @@ typedef struct {
 
 int effects_init(void* client);
 int effects_finish(int close_client);
-int effects_add(const char *uid, int instance);
+int effects_add(const char *uid, int instance, const char *jack_client_name);
 int effects_remove(int effect_id);
 int effects_preset_load(int effect_id, const char *uri);
 int effects_preset_save(int effect_id, const char *dir, const char *file_name, const char *label);
@@ -134,6 +134,7 @@ int effects_set_property(int effect_id, const char *label, const char *value);
 int effects_get_parameter(int effect_id, const char *control_symbol, float *value);
 int effects_monitor_parameter(int effect_id, const char *control_symbol, const char *op, float value);
 int effects_monitor_output_parameter(int effect_id, const char *control_symbol);
+int effects_monitor_output_parameter_stop(int effect_id, const char *control_symbol);
 int effects_bypass(int effect_id, int value);
 int effects_get_parameter_symbols(int effect_id, int output_ports, const char** symbols);
 int effects_get_presets_uris(int effect_id, const char **uris);

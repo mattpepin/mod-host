@@ -51,7 +51,7 @@
 #define SOCKET_MSG_BUFFER_SIZE  1024
 
 /* Protocol commands definition */
-#define EFFECT_ADD           "add %s %i"
+#define EFFECT_ADD           "add %s %i ..."
 #define EFFECT_REMOVE        "remove %i"
 #define EFFECT_PRESET_LOAD   "preset_load %i %s"
 #define EFFECT_PRESET_SAVE   "preset_save %i %s %s %s"
@@ -67,6 +67,7 @@
 #define EFFECT_SET_BPB       "set_bpb %f"
 #define MONITOR_ADDR_SET     "monitor %s %i %i"
 #define MONITOR_OUTPUT       "monitor_output %i %s"
+#define MONITOR_OUTPUT_STOP  "monitor_output_stop %i %s"
 #define MONITOR_MIDI_PROGRAM "monitor_midi_program %i %i"
 #define MIDI_LEARN           "midi_learn %i %s %f %f"
 #define MIDI_MAP             "midi_map %i %s %i %i %f %f"

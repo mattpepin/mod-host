@@ -62,8 +62,9 @@ static const char *g_commands[] = {
     "set_bpm",
     "set_bpb",
     "monitor",
-    "monitor_output",
     "monitor_midi_program",
+    "monitor_output",
+    "monitor_output_stop",
     "midi_learn",
     "midi_map",
     "midi_unmap",
@@ -366,6 +367,18 @@ static char **completion(const char *text, int start, int end)
                 }
             }
             else if (strcmp(cmd[0], "monitor_output") == 0)
+            {
+                if (count == 1)
+                {
+                    get_instances = 1;
+                }
+                else if (count == 2)
+                {
+                    get_symbols = 1;
+                    get_symbols_output = 1;
+                }
+            }
+            else if (strcmp(cmd[0], "monitor_output_stop") == 0)
             {
                 if (count == 1)
                 {

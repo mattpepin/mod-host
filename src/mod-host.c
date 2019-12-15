@@ -127,7 +127,12 @@ static pthread_t intclient_socket_thread;
 static void effects_add_cb(proto_t *proto)
 {
     int resp;
-    resp = effects_add(proto->list[1], atoi(proto->list[2]));
+    char *jack_client_name = NULL;
+    if (proto->list_count == 4)
+    {
+        jack_client_name = proto->list[3];
+    }
+    resp = effects_add(proto->list[1], atoi(proto->list[2]), jack_client_name);
     protocol_response_int(resp, proto);
 }
 
@@ -289,6 +294,16 @@ static void monitor_midi_program_cb(proto_t *proto)
     int resp;
     resp = effects_monitor_midi_program(atoi(proto->list[1]), atoi(proto->list[2]));
     protocol_response_int(resp, proto);
+}
+
+static void monitor_output_stop_cb(proto_t *proto)
+{
+    int resp;
+    resp = !effects_monitor_output_parameter_stop(atoi(proto->list[1]), proto->list[2]);
+
+    char buffer[128];
+    sprintf(buffer, "resp %i", resp);
+    protocol_response(buffer, proto);
 }
 
 static void midi_learn_cb(proto_t *proto)
@@ -572,6 +587,7 @@ static int mod_host_init(jack_client_t* client, int socket_port, int feedback_po
     protocol_add_command(EFFECT_SET_BPB, effects_set_beats_per_bar_cb);
     protocol_add_command(MONITOR_ADDR_SET, monitor_addr_set_cb);
     protocol_add_command(MONITOR_OUTPUT, monitor_output_cb);
+    protocol_add_command(MONITOR_OUTPUT_STOP, monitor_output_stop_cb);
     protocol_add_command(MONITOR_MIDI_PROGRAM, monitor_midi_program_cb);
     protocol_add_command(MIDI_LEARN, midi_learn_cb);
     protocol_add_command(MIDI_MAP, midi_map_cb);
