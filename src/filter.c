@@ -40,7 +40,7 @@
 ************************************************************************************************************************
 */
 
-#define AVERAGE_FILTER_STEPS  47
+#define AVERAGE_FILTER_STEPS  7
 #define BINOMIAL_FILTER_ORDER 37
 
 /*
@@ -198,8 +198,10 @@ double beat_clock_tick_filter(unsigned int raw_delta) {
       sum += g_delta[i];
     }
   }
+  result = sum/AVERAGE_FILTER_STEPS;
 
   // Binomial filter following
+  /*
 
   if (reset_average) {
     result = sum/AVERAGE_FILTER_STEPS;
@@ -217,6 +219,7 @@ double beat_clock_tick_filter(unsigned int raw_delta) {
   for (unsigned int i = 0; i < BINOMIAL_FILTER_ORDER; ++i) {
     result += coeffs[i] * g_average[i];
   }
+  */
 
   return result;
 }
